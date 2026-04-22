@@ -30,7 +30,7 @@ class BaseObject:
         Returns the raw json representation returned by the API
         :return: dict with the raw json data
         """
-        return self._raw_data
+        pass
 
     def to_dict(self) -> dict:
         result_dict = {}

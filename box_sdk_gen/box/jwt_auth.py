@@ -261,12 +261,7 @@ class JWTConfig:
         :param private_key_decryptor: Object responsible for decrypting private key for jwt auth. If no custom implementation provided, the DefaultPrivateKeyDecryptor will be used., defaults to None
         :type private_key_decryptor: Optional[PrivateKeyDecryptor], optional
         """
-        config_json_string: str = read_text_from_file(config_file_path)
-        return JWTConfig.from_config_json_string(
-            config_json_string,
-            token_storage=token_storage,
-            private_key_decryptor=private_key_decryptor,
-        )
+        pass
 
 
 class BoxJWTAuth(Authentication):
@@ -399,20 +394,7 @@ class BoxJWTAuth(Authentication):
         :param token_storage: Object responsible for storing token in newly created BoxJWTAuth. If no custom implementation provided, the token will be stored in memory., defaults to None
         :type token_storage: TokenStorage, optional
         """
-        if token_storage is None:
-            token_storage = InMemoryTokenStorage()
-        new_config: JWTConfig = JWTConfig(
-            client_id=self.config.client_id,
-            client_secret=self.config.client_secret,
-            enterprise_id=enterprise_id,
-            user_id=None,
-            jwt_key_id=self.config.jwt_key_id,
-            private_key=self.config.private_key,
-            private_key_passphrase=self.config.private_key_passphrase,
-            token_storage=token_storage,
-        )
-        new_auth: 'BoxJWTAuth' = BoxJWTAuth(config=new_config)
-        return new_auth
+        pass
 
     def downscope_token(
         self,
@@ -433,27 +415,7 @@ class BoxJWTAuth(Authentication):
         :param network_session: An object to keep network session state, defaults to None
         :type network_session: Optional[NetworkSession], optional
         """
-        token: Optional[AccessToken] = self.retrieve_token(
-            network_session=network_session
-        )
-        if token == None:
-            raise BoxSDKError(
-                message='No access token is available. Make an API call to retrieve a token before calling this method.'
-            )
-        auth_manager: AuthorizationManager = AuthorizationManager(
-            network_session=(
-                network_session if not network_session == None else NetworkSession()
-            )
-        )
-        downscoped_token: AccessToken = auth_manager.request_access_token(
-            PostOAuth2TokenGrantTypeField.URN_IETF_PARAMS_OAUTH_GRANT_TYPE_TOKEN_EXCHANGE,
-            subject_token=token.access_token,
-            subject_token_type=PostOAuth2TokenSubjectTokenTypeField.URN_IETF_PARAMS_OAUTH_TOKEN_TYPE_ACCESS_TOKEN,
-            resource=resource,
-            scope=' '.join(scopes),
-            box_shared_link=shared_link,
-        )
-        return downscoped_token
+        pass
 
     def revoke_token(self, *, network_session: Optional[NetworkSession] = None) -> None:
         """
@@ -461,18 +423,4 @@ class BoxJWTAuth(Authentication):
         :param network_session: An object to keep network session state, defaults to None
         :type network_session: Optional[NetworkSession], optional
         """
-        old_token: Optional[AccessToken] = self.token_storage.get()
-        if old_token == None:
-            return None
-        auth_manager: AuthorizationManager = AuthorizationManager(
-            network_session=(
-                network_session if not network_session == None else NetworkSession()
-            )
-        )
-        auth_manager.revoke_access_token(
-            client_id=self.config.client_id,
-            client_secret=self.config.client_secret,
-            token=old_token.access_token,
-        )
-        self.token_storage.clear()
-        return None
+        pass

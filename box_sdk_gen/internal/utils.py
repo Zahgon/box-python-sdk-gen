@@ -201,10 +201,10 @@ class Hash:
         self.hash = hashlib.sha1()
 
     def update_hash(self, data: Buffer):
-        self.hash.update(data)
+        pass
 
     def digest_hash(self, encoding):
-        return base64.b64encode(self.hash.digest()).decode("utf-8")
+        pass
 
 
 def hex_to_base_64(data: hex):
@@ -418,21 +418,7 @@ def create_null():
 
 def escape_unicode(value: str) -> str:
     def replace_char(match):
-        char = match.group(0)
-        code_point = ord(char)
-        if char == '\n':
-            return '\\n'
-        elif char == '\r':
-            return '\\r'
-        elif char == '\t':
-            return '\\t'
-        elif code_point <= 0xFFFF:  # Basic Multilingual Plane (BMP)
-            return f"\\u{code_point:04x}"
-        else:  # Supplementary Plane (Surrogate Pair)
-            code_point -= 0x10000
-            high_surrogate = 0xD800 + (code_point >> 10)
-            low_surrogate = 0xDC00 + (code_point & 0x3FF)
-            return f"\\u{high_surrogate:04x}\\u{low_surrogate:04x}"
+        pass
 
     # Replace any backslashes that are NOT part of a \/ with double backslash
     temp = re.sub(r'\\(?!/)', r'\\\\', value)

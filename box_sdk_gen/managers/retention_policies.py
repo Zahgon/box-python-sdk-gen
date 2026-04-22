@@ -119,33 +119,7 @@ class RetentionPoliciesManager:
                 :param extra_headers: Extra headers that will be included in the HTTP request., defaults to None
                 :type extra_headers: Optional[Dict[str, Optional[str]]], optional
         """
-        if extra_headers is None:
-            extra_headers = {}
-        query_params_map: Dict[str, str] = prepare_params(
-            {
-                'policy_name': to_string(policy_name),
-                'policy_type': to_string(policy_type),
-                'created_by_user_id': to_string(created_by_user_id),
-                'fields': to_string(fields),
-                'limit': to_string(limit),
-                'marker': to_string(marker),
-            }
-        )
-        headers_map: Dict[str, str] = prepare_params({**extra_headers})
-        response: FetchResponse = self.network_session.network_client.fetch(
-            FetchOptions(
-                url=''.join(
-                    [self.network_session.base_urls.base_url, '/2.0/retention_policies']
-                ),
-                method='GET',
-                params=query_params_map,
-                headers=headers_map,
-                response_format=ResponseFormat.JSON,
-                auth=self.auth,
-                network_session=self.network_session,
-            )
-        )
-        return deserialize(response.data, RetentionPolicies)
+        pass
 
     def create_retention_policy(
         self,
@@ -215,35 +189,7 @@ class RetentionPoliciesManager:
                 :param extra_headers: Extra headers that will be included in the HTTP request., defaults to None
                 :type extra_headers: Optional[Dict[str, Optional[str]]], optional
         """
-        if extra_headers is None:
-            extra_headers = {}
-        request_body: Dict = {
-            'policy_name': policy_name,
-            'description': description,
-            'policy_type': policy_type,
-            'disposition_action': disposition_action,
-            'retention_length': retention_length,
-            'retention_type': retention_type,
-            'can_owner_extend_retention': can_owner_extend_retention,
-            'are_owners_notified': are_owners_notified,
-            'custom_notification_recipients': custom_notification_recipients,
-        }
-        headers_map: Dict[str, str] = prepare_params({**extra_headers})
-        response: FetchResponse = self.network_session.network_client.fetch(
-            FetchOptions(
-                url=''.join(
-                    [self.network_session.base_urls.base_url, '/2.0/retention_policies']
-                ),
-                method='POST',
-                headers=headers_map,
-                data=serialize(request_body),
-                content_type='application/json',
-                response_format=ResponseFormat.JSON,
-                auth=self.auth,
-                network_session=self.network_session,
-            )
-        )
-        return deserialize(response.data, RetentionPolicy)
+        pass
 
     def get_retention_policy_by_id(
         self,
@@ -270,28 +216,7 @@ class RetentionPoliciesManager:
                 :param extra_headers: Extra headers that will be included in the HTTP request., defaults to None
                 :type extra_headers: Optional[Dict[str, Optional[str]]], optional
         """
-        if extra_headers is None:
-            extra_headers = {}
-        query_params_map: Dict[str, str] = prepare_params({'fields': to_string(fields)})
-        headers_map: Dict[str, str] = prepare_params({**extra_headers})
-        response: FetchResponse = self.network_session.network_client.fetch(
-            FetchOptions(
-                url=''.join(
-                    [
-                        self.network_session.base_urls.base_url,
-                        '/2.0/retention_policies/',
-                        to_string(retention_policy_id),
-                    ]
-                ),
-                method='GET',
-                params=query_params_map,
-                headers=headers_map,
-                response_format=ResponseFormat.JSON,
-                auth=self.auth,
-                network_session=self.network_session,
-            )
-        )
-        return deserialize(response.data, RetentionPolicy)
+        pass
 
     def update_retention_policy_by_id(
         self,
@@ -373,39 +298,7 @@ class RetentionPoliciesManager:
                 :param extra_headers: Extra headers that will be included in the HTTP request., defaults to None
                 :type extra_headers: Optional[Dict[str, Optional[str]]], optional
         """
-        if extra_headers is None:
-            extra_headers = {}
-        request_body: Dict = {
-            'policy_name': policy_name,
-            'description': description,
-            'disposition_action': disposition_action,
-            'retention_type': retention_type,
-            'retention_length': retention_length,
-            'status': status,
-            'can_owner_extend_retention': can_owner_extend_retention,
-            'are_owners_notified': are_owners_notified,
-            'custom_notification_recipients': custom_notification_recipients,
-        }
-        headers_map: Dict[str, str] = prepare_params({**extra_headers})
-        response: FetchResponse = self.network_session.network_client.fetch(
-            FetchOptions(
-                url=''.join(
-                    [
-                        self.network_session.base_urls.base_url,
-                        '/2.0/retention_policies/',
-                        to_string(retention_policy_id),
-                    ]
-                ),
-                method='PUT',
-                headers=headers_map,
-                data=serialize(request_body),
-                content_type='application/json',
-                response_format=ResponseFormat.JSON,
-                auth=self.auth,
-                network_session=self.network_session,
-            )
-        )
-        return deserialize(response.data, RetentionPolicy)
+        pass
 
     def delete_retention_policy_by_id(
         self,
@@ -421,23 +314,4 @@ class RetentionPoliciesManager:
                 :param extra_headers: Extra headers that will be included in the HTTP request., defaults to None
                 :type extra_headers: Optional[Dict[str, Optional[str]]], optional
         """
-        if extra_headers is None:
-            extra_headers = {}
-        headers_map: Dict[str, str] = prepare_params({**extra_headers})
-        response: FetchResponse = self.network_session.network_client.fetch(
-            FetchOptions(
-                url=''.join(
-                    [
-                        self.network_session.base_urls.base_url,
-                        '/2.0/retention_policies/',
-                        to_string(retention_policy_id),
-                    ]
-                ),
-                method='DELETE',
-                headers=headers_map,
-                response_format=ResponseFormat.NO_CONTENT,
-                auth=self.auth,
-                network_session=self.network_session,
-            )
-        )
-        return None
+        pass
